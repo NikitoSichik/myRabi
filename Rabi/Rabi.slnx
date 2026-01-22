@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="Rabi.vcxproj" />
+  <Project Path="Rabi.vcxproj" Id="df941e6e-dc56-43ef-8231-07f5ef4dda73" />
 </Solution>
