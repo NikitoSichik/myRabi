@@ -4,8 +4,8 @@
 
 int main() {
 	std::string text;
-	std::ifstream file("task13_1.txt");
-	file >> text;
+	std::getline(std::cin, text);
+	std::ofstream file("task13_2.txt");
+	file << text;
 	file.close();
-	std::cout << text;
 }
