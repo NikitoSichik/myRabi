@@ -9,7 +9,7 @@ class Planet {
 	int davlenie_;
 	int sputniki_;
 public:
-	Planet() {
+	Planet(std::string name, double massa, std::string sostav, int davlenie, int sputniki) {
 		std::cout << "Название: ";
 		std::cin >> name_;
 		std::cout << "Масса: ";
@@ -34,11 +34,31 @@ public:
 
 int main() {
 	system("chcp 1251");
+
+
 	int amount;
 	std::cout << "Количество планет в системе: ";
 	std::cin >> amount;
-	std::vector<Planet> vec(amount);
+	//std::vector<Planet> vec;
+	//vec.emplace_back();
+	std::vector<Planet> systemSosa;
+	systemSosa.emplace_back("Зумер", 5, "Зепупик", 6, 3);
+	systemSosa.emplace_back("Кизил", 8, "Лодки и свага", 2, 9);
+	systemSosa.emplace_back("Армавир", 2, "Голод и страдания", 2, -5);
+	systemSosa.emplace_back("42-братуханкс", 42, "Психи и клоуны", 42, 42);
+	for (int i = 0; i < systemSosa.size(); i++) {
+		systemSosa.at(i).PlanetOutput();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	for (int i = 0; i < amount; i++) {
-		vec.at(i).PlanetOutput();
+		systemSosa.at(i).PlanetOutput();
 	}
 }
