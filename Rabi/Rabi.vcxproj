@@ -19,8 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="3.3.cpp" />
-    <ClCompile Include="4.1.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Plate.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="class_Plate.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>18.0</VCProjectVersion>

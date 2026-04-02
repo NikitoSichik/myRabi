@@ -1,17 +1,7 @@
 #include <iostream>
 #include <string>
-#include <vector>
+#include "class_bed.hpp"
 
-class Bed {
-	bool two_tiered_;
-	int number_of_seats_;
-	std::string material_;
-	int money_;
-public:
-	Bed();
-	void BedEdit();
-	void BedPrint();
-};
 
 Bed::Bed() {
 	two_tiered_ = false;
@@ -38,27 +28,4 @@ void Bed::BedPrint() {
 	std::cout << "Материал ->" << material_ << '\n';
 	std::cout << "Сколько человек ->" << number_of_seats_ << '\n';
 	std::cout << "Стоимость ->" << money_ << '\n';
-}
-
-int main() {
-	system("chcp 1251");
-	int amount;
-	char cho;
-	std::cout << "Количество кроватей >_:";
-	std::cin >> amount;
-	std::vector<Bed> beds(amount);
-	std::cout << "Заполните сами? y/n >_:";
-	std::cin >> cho;
-	if (cho == 'n') {
-		for (int i = 0; i < beds.size(); i++)
-			beds.at(i).BedPrint();
-	}
-	else
-	{
-		for (int i = 0; i < beds.size(); i++) {
-			beds.at(i).BedEdit();
-			beds.at(i).BedPrint();
-		}
-	}
-
 }
