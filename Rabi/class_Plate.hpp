@@ -3,23 +3,24 @@
 #include <string>
 
 class Plate{
-	int Height_;
-	int Width_;
-	int Thickness_;
-	int Weight_;
-	std::string Material_;
+	int height_;
+	int width_;
+	int thickness_;
+	int weight_;
+	std::string material_;
 	std::string manufacturer_;
 	int cost_;
 public:
 	Plate();
 	Plate(
-		int Height,
-		int Width,
-		int Thickness,
-		int Weight,
-		std::string Material,
+		int height,
+		int width,
+		int thickness,
+		int weight,
+		std::string material,
 		std::string manufacturer,
 		int cost
 	);
-	void PlatePrint();
+	void platePrint();
+	void plateEdit();
 };

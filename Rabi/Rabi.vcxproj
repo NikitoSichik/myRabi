@@ -19,11 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Plate.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="class_Plate.hpp" />
+    <ClCompile Include="5.2.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>18.0</VCProjectVersion>
