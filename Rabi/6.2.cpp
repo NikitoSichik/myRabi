@@ -4,119 +4,93 @@
 
 class Company {
 	std::string name_;
-	int income_;
-	int expenses_;
-	int turnover_ = income_ + expenses_;
-	int net_profit_;
-	bool state_;
+	int dohod_;
+	int rashod_;
+	int oborot_ = dohod_ + rashod_;
+	int clear_pribily_ = dohod_ - rashod_;
+	std::string type_;
+
 public:
-	Company& setName(std::string name) { if (name != "") name_ = name; return *this; }
-	Company& setIncome(int income) { if (income > 0) income_ = income; turnover_ = income_ + expenses_; net_profit_ = income_ - expenses_; return *this; }
-	Company& setExpenses(int expenses) { if (expenses > 0) expenses_ = expenses; turnover_ = income_ + expenses_; net_profit_ = income_ - expenses_; return *this; }
+	Company& setName(std::string name) {
+		if (!name.empty()) name_ = name;
+		return *this;
+	}
 
-	std::string getName() const { return name_; }
-	int getIncome() const {
-		if (state_ == true && turnover_ >= 5000000) throw std::exception("это частная.");
-		else if (state_ == false) throw std::exception("это гос.");
-		else if (turnover_ < 5000000 && state_ == true) return income_;
+	Company& setDohod(int dohod) {
+		if (dohod > 0) { oborot_ = dohod_ + rashod_; clear_pribily_ = dohod_ - rashod_;  dohod_ = dohod; }
+		return *this;
 	}
-	int getExpenses() const {
-		if (state_ == true && turnover_ >= 5000000) throw std::exception("это частная.");
-		else if (state_ == false) throw std::exception("это гос.");
-		else if (turnover_ < 5000000 && state_ == true)  return expenses_;
-	}
-	int getTurnover() const {
-		if (state_ == true && turnover_ >= 5000000) throw std::exception("это частная.");
-		else if (state_ == false) return turnover_;
-		else if (turnover_ < 5000000 && state_ == true) return turnover_;
-	}
-	int getNet_profit() const {
-		if (state_ == true && turnover_ >= 5000000) throw std::exception("это частная.");
-		else if (state_ == false) throw std::exception("это гос.");
-		else if (turnover_ < 5000000 && state_ == true)  return net_profit_;
-	}
-	int getState() const { return state_; }
 
-	Company(std::string name, int income, int expenses, bool state) {
-		name_ = name;
-		income_ = income;
-		expenses_ = expenses;
-		state_ = state;
-		//if (turnover_ < 5000000) state_ = false; else state_ = true;
+	Company& setRashod(int rashod) {
+		if (rashod > 0) { oborot_ = dohod_ + rashod_; clear_pribily_ = dohod_ - rashod_; rashod_ = rashod; }
+		return *this;
+	}
+
+	int getOborot () {
+		if (dohod_ >= 0 && rashod_ >= 0) {
+			if (type_ == "гос") throw std::exception("это гос. компания");
+			else if (type_ == "час" && oborot_ < 5000000) return oborot_;
+			else if (type_ == "час") return oborot_;
+			oborot_ = dohod_ + rashod_;
+			return oborot_;
+		}
+		else throw std::exception("расход или доход мельше 0");
+	}
+
+	int getClearPribily() {
+		if (dohod_ >= 0 && rashod_ >= 0) {
+			if (type_ == "гос") throw std::exception("это гос. компания");
+			else if (type_ == "час" && oborot_ < 5000000) throw std::exception("час. меньше 5000000");
+			else if (type_ == "час") return clear_pribily_;
+			clear_pribily_ = dohod_ - rashod_;
+			return clear_pribily_;
+		}
+		else throw std::exception("расход или доход мельше 0");
+	}
+	
+	Company(std::string name, int dohod, int rashod, int oborot, int clear_pribily, std::string type) {
+		name = name_;
+		dohod = dohod_;
+		rashod = rashod_;
+		oborot = oborot_;
+		clear_pribily = clear_pribily_;
+		type = type_;
 	}
 
 	void Print() {
-		try { std::cout << "Имя компании: " << getName() << "\n"; }
-		catch (std::exception ex) { std::cout << ex.what() << "\n"; }
-		try { std::cout << "Тип компании: " << ((getState() == false) ? "государственная\n" : "частная\n"); }
-		catch (std::exception ex) { std::cout << ex.what() << "\n"; }
-		try { std::cout << "Доход компании: " << getIncome() << "\n"; }
-		catch (std::exception ex) { std::cout << ex.what() << "\n"; }
-		try { std::cout << "Расход компании: " << getExpenses() << "\n"; }
-		catch (std::exception ex) { std::cout << ex.what() << "\n"; }
-		try { std::cout << "Оборот компании: " << getTurnover() << "\n"; }
-		catch (std::exception ex) { std::cout << ex.what() << "\n"; }
-		try { std::cout << "Чистая прибыль: " << getNet_profit() << "\n"; }
-		catch (std::exception ex) { std::cout << ex.what() << "\n"; }
+		std::cout <<
+			"Имя: " << name_ <<
+			"Доход: " << dohod_ <<
+			"Расход: " << rashod_ <<
+			"Оборот: " << dohod_ <<
+			"Чистая прибыль: " << clear_pribily_ <<
+			"тип: " << type_;
 	}
 
 	void Edit() {
-		std::string name;
-		int income, expenses;
-		std::cout << "\nВведите имя: ";
-		std::cin.ignore(1024, '\n');
-		std::getline(std::cin, name);
-		setName(name);
 
-		std::cout << "\nВведите доход: ";
-		std::cin >> income;
-		setIncome(income);
-
-		std::cout << "\nВведите расход: ";
-		std::cin >> expenses;
-		setIncome(expenses);
 	}
 };
 
 int main() {
-	system("chcp 1251");
-	std::vector<Company> companies{ {"миржелтокаяяйцо", 10000000, 100000, true},{"ГАЗНЕФТЬГАЗГАЗ", 100000000, 400, false},{"ООО тмыв денег", 1000000, 1000000, true} };
-	std::string name;
-	int cho, index, income, expenses;
-	bool is_private;
+	std::vector<Company> vec{  };
+	int cho, cho2;
 	do {
-		std::cout << "\n1.Вывести все компании\n2.Редактировать компанию\n3.Добавить компанию\n4.Удалить компанию\n5.Выход\n>_: ";
+		std::cout << "\n1. Ввывести\n2. Редактировать\n3. Добавить\n4. Удалить\n";
 		std::cin >> cho;
-		if (cho == 1) {
-			for (int i = 0; i < companies.size(); i++) {
-				std::cout << i << '\n';
-				companies.at(i).Print();
-			}
+		switch (cho) {
+		case 1:
+			for (int i = 0; i < vec.size(); i++)
+				vec.at(i).Print();
+			break;
+		case 2:
+			std::
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
 		}
-		if (cho == 2) {
-			std::cout << "\nВведите индекс: ";
-			std::cin >> index;
-			companies.at(index).Edit();
-		}
-		if (cho == 3) {
-			std::cout << "\nВведите имя: ";
-			std::cin.ignore(1024, '\n');
-			std::getline(std::cin, name);
 
-			std::cout << "\nВведите частная ли компания(1-да/0-нет): ";
-			std::cin >> is_private;
-
-			std::cout << "\nВведите доход: ";
-			std::cin >> income;
-
-			std::cout << "\nВведите расход: ";
-			std::cin >> expenses;
-			companies.emplace_back(name, is_private, income, expenses);
-		}
-		if (cho == 4) {
-			std::cout << "\nВведите индекс: ";
-			std::cin >> index;
-			companies.erase(companies.begin() + index);
-		}
-	} while (cho != 5);
+	} while (cho < 4 || cho > 1);
 }
