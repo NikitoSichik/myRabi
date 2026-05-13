@@ -1,16 +1,17 @@
 #include <iostream>
+#include <vector>
 
 class Test {
 	int num_;
 public:
 	Test() : num_(0) {
-		std::cout << "Конст. ум. " << this << '\n';
+		std::cout << "Конструктор по умолчанию" << this << ' ' << num_ << '\n';
 	}
 	Test(int num): num_(num) {
-		std::cout << "Конст. с пар. " << this << '\n';
+		std::cout << "Конструктор с параметром " << this << ' ' << num_ << '\n';
 	}
 	Test(const Test& obj) {
-		std::cout << "Сработал конст. коп. из " << &obj << " в " << this << '\n';
+		std::cout << "Сработал конструктор копирования из " << &obj << " в " << this << ' ' << obj.num_ << '\n';
 		num_ = obj.num_;
 	}
 
@@ -23,7 +24,17 @@ public:
 };
 int main() {
 	system("chcp 1251");
-	Test obj1;
-	Test obj2;
-	Test obj()
+	std::vector<Test> vec(3);
+	std::cout << "\nудалил эл.\n";
+	vec.erase(vec.begin());
+	std::cout << "\nдобавил эл. push_back\n";
+	vec.push_back(4);
+	std::cout << "\nудалил эл.\n";
+	vec.erase(vec.begin());
+	std::cout << "\nдобавил эл. emplace_back\n";
+	vec.emplace_back(5);
+	std::cout << "\nдобавил эл. emplace_back\n";
+	vec.emplace_back(6);
+	std::cout << "\nдобавил эл. emplace_back\n";
+	vec.emplace_back(7);
 }
