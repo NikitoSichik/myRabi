@@ -23,7 +23,7 @@ public:
 		delete size_;
 		std::cout << "деструктор\n";
 	}
-
+	
 	DynamicClass(DynamicClass&& src) noexcept {
 		size_ = src.size_;
 		arr_ = src.arr_;
